@@ -36,6 +36,7 @@ function NumericInput({
                   "cursor-pointer py-1 border-input " +
                   (i === amountFractions.length - 1 ? "" : "border-r")
                 }
+                key={item * 100}
                 style={{ width: `${amountFractions.length * 100}%` }}
               >
                 {item * 100}%
