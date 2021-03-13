@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Web3 from "web3";
+import EngageWallet from "../Common/EngageWallet";
 const {
   WEENUS_TOKEN_ADDRESS,
   WEENUS_TOKEN_ABI,
@@ -61,7 +62,7 @@ function Header() {
   return (
     <header className="flex row items-center justify-between bg-black px-8 py-2">
       <img src="images/Primary Logo - white.png" alt="Logo" width="216" />
-      <button className="border border-4 border-cta rounded-xl text-cta px-3.5 py-1 focus:outline-none" onClick={ethEnabled}> {wallet || "Engage Wallet"}</button>
+      <EngageWallet engageWallet={ethEnabled} wallet={wallet} />
     </header>
   );
 }

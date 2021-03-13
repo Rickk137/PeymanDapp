@@ -12,6 +12,11 @@ module.exports = {
       overlay: "#707070",
       daapBackground: "#191919",
       warningRed: "#A52222",
+
+      gray: {
+        100: "#686868",
+        200: "#383838",
+      },
     },
   },
   variants: {
