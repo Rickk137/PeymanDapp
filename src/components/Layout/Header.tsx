@@ -59,9 +59,9 @@ function Header() {
   }, []);
 
   return (
-    <header>
-      <button onClick={ethEnabled}> {wallet || "Engage Wallet"}</button>
-      <button onClick={transfer}>transfer</button>
+    <header className="flex row items-center justify-between bg-black px-8 py-2">
+      <img src="images/Primary Logo - white.png" alt="Logo" width="216" />
+      <button className="border border-4 border-cta rounded-xl text-cta px-3.5 py-1 focus:outline-none" onClick={ethEnabled}> {wallet || "Engage Wallet"}</button>
     </header>
   );
 }
