@@ -1,20 +1,13 @@
-import { useState } from 'react';
-import NumericInput from './components/Common/NumericInput';
+import TransactionBox from './components/Common/TransactionBox';
 import Header from './components/Layout/Header';
 
-
 function App() {
-  const [amount, setAmount] = useState(0);
   return (
     <div>
       <Header />
-      <NumericInput
-        value={amount}
-        onChange={setAmount}
-        currency="rBTC"
-        label="Amount:"
-        multiselect={true}
-      />
+      <div className="flex justify-center pt-10">
+        <TransactionBox />
+      </div>
     </div>
   );
 }

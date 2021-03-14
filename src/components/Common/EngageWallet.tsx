@@ -12,7 +12,7 @@ function EngageWallet({
   loading = false,
 }: EngageWalletProps) {
   return account ? (
-    <div className="flex row items-center rounded-lg text-white bg-gray-200 overflow-hidden">
+    <div className="flex row items-center rounded-lg text-white bg-gray-300 overflow-hidden">
       <span className="px-4">{stringEllipse(account)}</span>
       <span className="flex row items-center content-center bg-gray-100 p-2">
         <img

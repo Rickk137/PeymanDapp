@@ -17,9 +17,9 @@ function NumericInput({
   multiselect,
 }: NumericInputProps) {
   return (
-    <div className="inline-flex flex-col w-80">
+    <div className="inline-flex flex-col w-60 md:w-80">
       {label && <label className="text-white mb-3">{label}</label>}
-      <div className="flex items-center relative">
+      <div className="flex items-center relative text-black">
         <input
           className="focus:outline-none h-10 w-full px-12 rounded-lg text-center"
           placeholder={placeholder}

@@ -63,7 +63,7 @@ function Header() {
 
   return (
     <header className="flex row items-center justify-between bg-black px-8 py-2">
-      <img src="images/Primary Logo - white.png" alt="Logo" width="216" />
+      <img src="images/Primary Logo - white.png" alt="Logo" width="216" className="hidden md:block" />
       <EngageWallet
         engageWallet={engageWallet}
         account={account}
