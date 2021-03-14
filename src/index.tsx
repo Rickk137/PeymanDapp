@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import "./tailwind.output.css"
+import './tailwind.output.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {
+  Provider as Web3Provider,
+  Updater as Web3Updater,
+} from './context/Web3';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Web3Provider>
+      <App />
+      <Web3Updater />
+    </Web3Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
