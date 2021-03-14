@@ -108,6 +108,8 @@ export function Updater() {
 
       return stopChecker;
     }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.web3, state.account]);
 
   return null;

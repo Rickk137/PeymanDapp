@@ -22,13 +22,8 @@ export async function unlockAccount() {
 
 export function web3Checker(
   web3: Web3,
-  cb: (
-    account: string,
-    network: string,
-    error: Error | null
-  ) => any
+  cb: (account: string, network: string, error: Error | null) => any
 ) {
-
   const intervalId = setInterval(async () => {
     try {
       const network = await web3.eth.net.getNetworkType();

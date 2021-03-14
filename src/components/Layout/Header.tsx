@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import EngageWallet from '../Common/EngageWallet';
 import { useWeb3Context } from '../../context/Web3';
 import { unlockAccount } from '../../lib/web3';
@@ -54,7 +54,7 @@ function Header() {
   const engageWallet = async () => {
     setLoading(true);
     try {
-      const { account, web3, network } = await unlockAccount();
+      const { account, web3 } = await unlockAccount();
       UpdateAccount({ account });
       UpdateWeb3({ web3 });
     } catch (error) {}
@@ -64,7 +64,11 @@ function Header() {
   return (
     <header className="flex row items-center justify-between bg-black px-8 py-2">
       <img src="images/Primary Logo - white.png" alt="Logo" width="216" />
-      <EngageWallet engageWallet={engageWallet} account={account} loading={loading} />
+      <EngageWallet
+        engageWallet={engageWallet}
+        account={account}
+        loading={loading}
+      />
     </header>
   );
 }

@@ -6,7 +6,11 @@ interface EngageWalletProps {
   loading?: boolean;
 }
 
-function EngageWallet({ account, engageWallet, loading = false }: EngageWalletProps) {
+function EngageWallet({
+  account,
+  engageWallet,
+  loading = false,
+}: EngageWalletProps) {
   return account ? (
     <div className="flex row items-center rounded-lg text-white bg-gray-200 overflow-hidden">
       <span className="px-4">{stringEllipse(account)}</span>
