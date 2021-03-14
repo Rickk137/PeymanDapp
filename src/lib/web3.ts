@@ -23,8 +23,8 @@ export async function unlockAccount() {
 export function web3Checker(
   web3: Web3,
   cb: (
-    account: string | null,
-    network: string | null,
+    account: string,
+    network: string,
     error: Error | null
   ) => any
 ) {
@@ -35,7 +35,7 @@ export function web3Checker(
       const accounts = await web3.eth.getAccounts();
       cb(accounts[0] || '', network || '', null);
     } catch (error) {
-      cb(null, null, error);
+      cb('', '', error);
     }
   }, 1000);
 

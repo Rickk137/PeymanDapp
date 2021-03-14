@@ -92,7 +92,7 @@ export const Provider: React.FC<ProviderProps> = ({ children }) => {
 };
 
 export function Updater() {
-  const { state } = useWeb3Context();
+  const { state, UpdateAccount } = useWeb3Context();
 
   useEffect(() => {
     if (state.web3) {
@@ -102,7 +102,7 @@ export function Updater() {
         }
 
         if (account !== state.account) {
-          window.location.reload();
+          UpdateAccount({ account });
         }
       });
 

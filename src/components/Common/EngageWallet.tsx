@@ -3,9 +3,10 @@ import { stringEllipse } from '../../lib/utils';
 interface EngageWalletProps {
   account: string;
   engageWallet: Function;
+  loading?: boolean;
 }
 
-function EngageWallet({ account, engageWallet }: EngageWalletProps) {
+function EngageWallet({ account, engageWallet, loading = false }: EngageWalletProps) {
   return account ? (
     <div className="flex row items-center rounded-lg text-white bg-gray-200 overflow-hidden">
       <span className="px-4">{stringEllipse(account)}</span>
@@ -22,7 +23,8 @@ function EngageWallet({ account, engageWallet }: EngageWalletProps) {
   ) : (
     <button
       onClick={() => engageWallet()}
-      className="border border-4 border-cta rounded-lg text-cta px-3.5 py-1 focus:outline-none"
+      disabled={loading}
+      className="border border-4 border-cta rounded-lg text-cta px-3.5 py-1 focus:outline-none disabled:opacity-50"
     >
       Engage Wallet
     </button>
