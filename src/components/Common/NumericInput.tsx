@@ -33,7 +33,7 @@ function NumericInput({
             return (
               <li
                 className={
-                  "cursor-pointer py-1 border-input " +
+                  "cursor-pointer py-1 border-input hover:bg-input hover:bg-opacity-50 transition delay-900 ease-in-out " +
                   (i === amountFractions.length - 1 ? "" : "border-r")
                 }
                 key={item * 100}
