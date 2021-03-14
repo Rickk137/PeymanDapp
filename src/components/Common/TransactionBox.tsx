@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useWeb3Context } from '../../context/Web3';
 import Assets from './Assets';
 import NumericInput from './NumericInput';
+import BlockWrapper from './BlockWrapper';
 
 function TransactionBox() {
   const {
@@ -16,18 +17,28 @@ function TransactionBox() {
       }
     >
       <h3 className="text-4xl text-center mb-12">SEND</h3>
-      <div className="mb-9">
-        <Assets />
-      </div>
-      <NumericInput
-        value={amount}
-        onChange={setAmount}
-        currency="rBTC"
-        label="Amount:"
-        multiselect={true}
-      />
 
-      <button className="mt-10 mx-auto font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none w-48">
+      <BlockWrapper className="mb-9" label="Assets:">
+        <Assets />
+      </BlockWrapper>
+
+      <BlockWrapper className="mb-9" label="Amount:">
+        <NumericInput
+          value={amount}
+          onChange={setAmount}
+          currency="rBTC"
+          multiselect={true}
+        />
+      </BlockWrapper>
+
+      <BlockWrapper className="mb-10" label="Send To:">
+        <input
+          className="focus:outline-none text-black h-10 w-full px-4 rounded-lg text-center"
+          placeholder="Type or Paste address"
+        />
+      </BlockWrapper>
+
+      <button className="mx-auto font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none w-48">
         Submit
       </button>
 

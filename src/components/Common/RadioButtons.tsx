@@ -1,21 +1,18 @@
 interface RadioOption {
   id: string;
-  label: string;
   icon?: string;
+  label: string;
 }
 
 interface RadioButtonsProps {
   options: RadioOption[];
-  label?: string;
   onChange: Function;
   value: string;
 }
 
-function RadioButtons({ label, options, onChange, value }: RadioButtonsProps) {
+function RadioButtons({ options, onChange, value }: RadioButtonsProps) {
   return (
     <div className="inline-flex flex-col w-60 md:w-80">
-      {label && <label className="text-white mb-2.5">{label}</label>}
-
       <ul className="flex items-center rounded-lg border border-input text-center">
         {options.map((item, i) => {
           return (

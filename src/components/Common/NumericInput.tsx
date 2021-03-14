@@ -2,7 +2,6 @@ interface NumericInputProps {
   value: string | number;
   onChange: Function;
   currency: string;
-  label?: string;
   placeholder?: string;
   multiselect?: boolean;
 }
@@ -12,18 +11,18 @@ function NumericInput({
   value,
   onChange,
   currency,
-  placeholder = "",
-  label,
+  placeholder = '',
   multiselect,
 }: NumericInputProps) {
   return (
     <div className="inline-flex flex-col w-60 md:w-80">
-      {label && <label className="text-white mb-3">{label}</label>}
       <div className="flex items-center relative text-black">
         <input
           className="focus:outline-none h-10 w-full px-12 rounded-lg text-center"
           placeholder={placeholder}
-          value={value}
+          type="number"
+          step="0.01"
+          min="0"
         />
         <span className="absolute right-5">{currency}</span>
       </div>
@@ -33,8 +32,8 @@ function NumericInput({
             return (
               <li
                 className={
-                  "cursor-pointer py-1 border-input hover:bg-input hover:bg-opacity-50 transition delay-900 ease-in-out " +
-                  (i === amountFractions.length - 1 ? "" : "border-r")
+                  'cursor-pointer py-1 border-input hover:bg-input hover:bg-opacity-50 transition delay-900 ease-in-out ' +
+                  (i === amountFractions.length - 1 ? '' : 'border-r')
                 }
                 key={item * 100}
                 style={{ width: `${amountFractions.length * 100}%` }}

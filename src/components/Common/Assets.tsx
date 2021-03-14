@@ -20,7 +20,6 @@ function Assets() {
   return (
     <div>
       <RadioButtons
-        label="Assets:"
         options={assetList}
         value={activeAsset}
         onChange={setActiveAsset}
