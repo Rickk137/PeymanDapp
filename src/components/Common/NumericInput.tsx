@@ -23,9 +23,9 @@ function NumericInput({
   };
   return (
     <div className="inline-flex flex-col w-60 md:w-80">
-      <div className="flex items-center relative text-black">
+      <div className="flex items-center relative text-black bg-white rounded-lg overflow-hidden">
         <input
-          className="focus:outline-none h-10 w-full px-12 rounded-lg text-center"
+          className="focus:outline-none h-10 w-full px-2 bg-white text-center"
           placeholder={placeholder}
           type="number"
           step="0.0001"
@@ -34,7 +34,7 @@ function NumericInput({
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <span className="absolute right-5">{currency}</span>
+        <span className="pr-5">{currency}</span>
       </div>
       {multiselect && (
         <ul className="flex items-center mt-4 rounded-lg border border-input text-input text-center">

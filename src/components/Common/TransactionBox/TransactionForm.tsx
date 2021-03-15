@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useWeb3Context } from '../../../context/Web3';
 import Assets from '../Assets';
 import NumericInput from '../NumericInput';
@@ -11,7 +11,7 @@ interface TransactionFormProps {
 
 function TransactionForm({ submit }: TransactionFormProps) {
   const {
-    state: { account, balance },
+    state: { account, balance, weenusBalance },
   } = useWeb3Context();
 
   const [amount, setAmount] = useState(0);
@@ -29,10 +29,20 @@ function TransactionForm({ submit }: TransactionFormProps) {
     submit(payload);
   };
 
+  const assetBalance = () =>
+    weiToEther(activeAsset === 'rETH' ? balance : weenusBalance);
+
+  useEffect(() => {
+    if (amount > assetBalance()) setAmount(assetBalance());
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeAsset, amount]);
+  
   return (
     <div
       className={
-        'relative block-flex w-full flex flex-col items-center transition-opacity delay-900 ease-in-out ' + (!account ? 'opacity-50' : '')
+        'relative block-flex w-full flex flex-col items-center transition-opacity delay-900 ease-in-out ' +
+        (!account ? 'opacity-50' : '')
       }
     >
       <h3 className="text-4xl text-center mb-12">SEND</h3>
@@ -41,7 +51,7 @@ function TransactionForm({ submit }: TransactionFormProps) {
         <Assets
           activeAsset={activeAsset}
           setActiveAsset={setActiveAsset}
-          balance={weiToEther(balance)}
+          balance={assetBalance()}
         />
       </BlockWrapper>
 
@@ -51,7 +61,7 @@ function TransactionForm({ submit }: TransactionFormProps) {
           onChange={setAmount}
           currency={activeAsset}
           multiselect={true}
-          max={weiToEther(balance)}
+          max={assetBalance()}
         />
       </BlockWrapper>
 

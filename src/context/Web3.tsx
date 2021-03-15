@@ -13,11 +13,14 @@ interface DaapState {
   account: string;
   balance: string;
   weenus: any;
+  weenusBalance: string;
 }
 
 const UPDATE_WEB3 = 'UPDATE_WEB3';
 const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
 const UPDATE_BALANCE = 'UPDATE_BALANCE';
+const UPDATE_WEENUS = 'UPDATE_WEENUS';
+const UPDATE_WEENUS_BALANCE = 'UPDATE_WEENUS_BALANCE';
 
 interface UpdateWeb3 {
   type: 'UPDATE_WEB3';
@@ -32,13 +35,29 @@ interface UpdateBalance {
   balance: string;
 }
 
-type ReducerAction = UpdateAccount | UpdateWeb3 | UpdateBalance;
+interface UpdateWeenus {
+  type: 'UPDATE_WEENUS';
+  weenus: string;
+}
+
+interface UpdateWeenusBalance {
+  type: 'UPDATE_WEENUS_BALANCE';
+  weenusBalance: string;
+}
+
+type ReducerAction =
+  | UpdateAccount
+  | UpdateWeb3
+  | UpdateBalance
+  | UpdateWeenus
+  | UpdateWeenusBalance;
 
 const INITIAL_STATE: DaapState = {
   web3: null,
   account: '',
   balance: '',
   weenus: null,
+  weenusBalance: '',
 };
 
 function reducer(state: DaapState = INITIAL_STATE, action: ReducerAction) {
@@ -61,6 +80,18 @@ function reducer(state: DaapState = INITIAL_STATE, action: ReducerAction) {
         balance: action.balance,
       };
 
+    case UPDATE_WEENUS:
+      return {
+        ...state,
+        weenus: action.weenus,
+      };
+
+    case UPDATE_WEENUS_BALANCE:
+      return {
+        ...state,
+        weenusBalance: action.weenusBalance,
+      };
+
     default:
       return state;
   }
@@ -71,6 +102,8 @@ const Web3Context = createContext({
   UpdateAccount: (_data: { account: string }) => {},
   UpdateBalance: (_data: { balance: string }) => {},
   UpdateWeb3: (_data: { web3: Web3 | null }) => {},
+  UpdateWeenus: (_data: { weenus: any }) => {},
+  UpdateWeenusBalance: (_data: { weenusBalance: string }) => {},
 });
 
 export function useWeb3Context() {
@@ -103,10 +136,30 @@ export const Provider: React.FC<ProviderProps> = ({ children }) => {
     });
   }
 
+  function UpdateWeenus(data: { weenus: any }) {
+    dispatch({
+      type: UPDATE_WEENUS,
+      ...data,
+    });
+  }
+  function UpdateWeenusBalance(data: { weenusBalance: string }) {
+    dispatch({
+      type: UPDATE_WEENUS_BALANCE,
+      ...data,
+    });
+  }
+
   return (
     <Web3Context.Provider
       value={useMemo(
-        () => ({ state, UpdateAccount, UpdateWeb3, UpdateBalance }),
+        () => ({
+          state,
+          UpdateAccount,
+          UpdateWeb3,
+          UpdateBalance,
+          UpdateWeenus,
+          UpdateWeenusBalance,
+        }),
         [state]
       )}
     >

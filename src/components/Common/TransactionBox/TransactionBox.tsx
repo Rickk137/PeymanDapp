@@ -18,7 +18,7 @@ export interface ITransactionForm {
 
 function TransactionBox() {
   const {
-    state: { web3 },
+    state: { web3, weenus },
   } = useWeb3Context();
 
   const [transactionHash, setTransactionHash] = useState('');
@@ -36,37 +36,53 @@ function TransactionBox() {
   };
 
   const submitTransaction = async () => {
-    const { to, from, amount } = form;
+    const { to, from, amount, asset } = form;
     if (web3) {
-      web3.eth.sendTransaction(
-        {
-          to,
-          from,
-          value: `${etherToWei(amount)}`,
-        },
-        (err, hash) => {
-          if (err) return console.error(err);
+      if (asset === 'rETH') {
+        web3.eth.sendTransaction(
+          {
+            to,
+            from,
+            value: `${etherToWei(amount)}`,
+          },
+          (err, hash) => {
+            if (err) return console.error(err);
 
-          setTransactionHash(hash);
-          setStep(3);
+            setTransactionHash(hash);
+            setStep(3);
 
-          const checkTransaction = setInterval(() => {
-            web3.eth.getTransactionReceipt(hash, (err, receipt) => {
-              if (err) return console.log(err);
-              if (receipt) {
-                if (receipt.status) {
-                  toast.success(
-                    `Transaction ${stringEllipse(hash)} Successfully mined!`
-                  );
-                } else {
-                  toast.error(`Transaction ${stringEllipse(hash)} reverted!`);
+            const checkTransaction = setInterval(() => {
+              web3.eth.getTransactionReceipt(hash, (err, receipt) => {
+                if (err) return console.log(err);
+                if (receipt) {
+                  if (receipt.status) {
+                    toast.success(
+                      `Transaction ${stringEllipse(hash)} Successfully mined!`
+                    );
+                  } else {
+                    toast.error(`Transaction ${stringEllipse(hash)} reverted!`);
+                  }
+                  clearInterval(checkTransaction);
                 }
-                clearInterval(checkTransaction);
-              }
-            });
-          }, 5000);
+              });
+            }, 5000);
+          }
+        );
+      } else if (asset === 'WEENUS') {
+        try {
+          const success = await weenus.methods
+            .transfer(to, `${etherToWei(amount)}`)
+            .call();
+          if (success) {
+            toast.success(`Transaction created!`);
+          } else throw new Error('Error happened');
+
+          setStep(3);
+        } catch (error) {
+          console.error('error tx', error);
+          toast.error(`Transaction reverted!`);
         }
-      );
+      }
     }
   };
 

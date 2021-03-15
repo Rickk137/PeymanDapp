@@ -19,12 +19,14 @@ function TransactionResult({ hash, close }: TransactionResultProps) {
 
       <p className="text-center">Status Pending</p>
 
-      <p className="my-9 text-center">
-        Tx Hash: <span className="text-cta">{stringEllipse(hash)}</span>
-      </p>
+      {hash && (
+        <p className="mt-9 text-center">
+          Tx Hash: <span className="text-cta">{stringEllipse(hash)}</span>
+        </p>
+      )}
 
       <button
-        className="mx-auto font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none w-48"
+        className="mt-9 mx-auto font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none w-48"
         onClick={() => close()}
       >
         CLOSE
