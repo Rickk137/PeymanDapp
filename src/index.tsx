@@ -9,12 +9,12 @@ import {
 } from './context/Web3';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Web3Provider>
       <App />
       <Web3Updater />
     </Web3Provider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 

@@ -32,7 +32,7 @@ function TransactionForm({ submit }: TransactionFormProps) {
   return (
     <div
       className={
-        'relative block-flex w-full flex flex-col items-center ' + (!account ? 'opacity-50' : '')
+        'relative block-flex w-full flex flex-col items-center transition-opacity delay-900 ease-in-out ' + (!account ? 'opacity-50' : '')
       }
     >
       <h3 className="text-4xl text-center mb-12">SEND</h3>
