@@ -19,7 +19,7 @@ function TransactionReview({ form, submit }: TransactionReviewProps) {
         </span>
       </div>
 
-      <p>From: {form.from}</p>
+      <p className="truncate">From: {form.from}</p>
 
       <img
         className="self-center my-7"
@@ -28,7 +28,7 @@ function TransactionReview({ form, submit }: TransactionReviewProps) {
         width="30"
       />
 
-      <p className="mb-10">To: {form.to}</p>
+      <p className="mb-10 truncate">To: {form.to}</p>
 
       <p className="flex items-center justify-between mb-9 px-10">
         TxFee: <span>0.0006 rBTC</span>

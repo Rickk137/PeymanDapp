@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './tailwind.output.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -13,6 +17,7 @@ ReactDOM.render(
     <Web3Provider>
       <App />
       <Web3Updater />
+      <ToastContainer position="top-right" autoClose={8000} pauseOnFocusLoss />
     </Web3Provider>
   </React.Fragment>,
   document.getElementById('root')

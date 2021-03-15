@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useWeb3Context } from '../../../context/Web3';
-import { etherToWei } from '../../../lib/utils';
+import { etherToWei, stringEllipse } from '../../../lib/utils';
 import TransactionForm from './TransactionForm';
 import TransactionResult from './TransactionResult';
 import TransactionReview from './TransactionReview';
 
 // import Fade from 'react-reveal/Fade';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
+import { toast } from 'react-toastify';
 
 export interface ITransactionForm {
   asset: string;
@@ -48,6 +49,22 @@ function TransactionBox() {
 
           setTransactionHash(hash);
           setStep(3);
+
+          const checkTransaction = setInterval(() => {
+            web3.eth.getTransactionReceipt(hash, (err, receipt) => {
+              if (err) return console.log(err);
+              if (receipt) {
+                if (receipt.status) {
+                  toast.success(
+                    `Transaction ${stringEllipse(hash)} Successfully mined!`
+                  );
+                } else {
+                  toast.error(`Transaction ${stringEllipse(hash)} reverted!`);
+                }
+                clearInterval(checkTransaction);
+              }
+            });
+          }, 5000);
         }
       );
     }
@@ -56,7 +73,7 @@ function TransactionBox() {
   return (
     <div
       className="transaction-box p-9 border border-gray-200 text-white bg-black bg-opacity-50 rounded-3xl"
-      style={{ minWidth: 400 }}
+      style={{ width: 400 }}
     >
       <SwitchTransition>
         <CSSTransition
@@ -79,7 +96,6 @@ function TransactionBox() {
                 hash={transactionHash}
               />
             )}
-
           </div>
         </CSSTransition>
       </SwitchTransition>

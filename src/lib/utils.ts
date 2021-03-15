@@ -1,6 +1,6 @@
-export function stringEllipse(str: string) {
+export function stringEllipse(str: string, l = 4) {
   if (str.length > 12) {
-    return str.substr(0, 4) + '....' + str.substr(str.length - 4, str.length);
+    return str.substr(0, l) + '....' + str.substr(str.length - l, str.length);
   }
   return str;
 }
