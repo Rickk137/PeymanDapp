@@ -7,3 +7,6 @@ export function stringEllipse(str: string) {
 export function weiToEther(amount: string) {
   return parseInt(amount || '0') / 1000000000000000000;
 }
+export function etherToWei(amount: number) {
+  return amount * 1000000000000000000;
+}

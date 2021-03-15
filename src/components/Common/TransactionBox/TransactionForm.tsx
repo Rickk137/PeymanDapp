@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import { useWeb3Context } from '../../context/Web3';
-import Assets from './Assets';
-import NumericInput from './NumericInput';
-import BlockWrapper from './BlockWrapper';
-import { weiToEther } from '../../lib/utils';
+import { useWeb3Context } from '../../../context/Web3';
+import Assets from '../Assets';
+import NumericInput from '../NumericInput';
+import BlockWrapper from '../BlockWrapper';
+import { weiToEther } from '../../../lib/utils';
 
-function TransactionBox() {
+interface TransactionFormProps {
+  submit: Function;
+}
+
+function TransactionForm({ submit }: TransactionFormProps) {
   const {
     state: { account, balance },
   } = useWeb3Context();
@@ -14,11 +18,21 @@ function TransactionBox() {
   const [receiver, setReceiver] = useState('');
   const [activeAsset, setActiveAsset] = useState('rETH');
 
+  const submitForm = () => {
+    const payload = {
+      asset: activeAsset,
+      amount,
+      from: account,
+      to: receiver,
+    };
+
+    submit(payload);
+  };
+
   return (
     <div
       className={
-        'relative p-9 inline-flex flex-col text-white bg-black rounded-3xl bg-opacity-50 border border-gray-200 ' +
-        (!account ? 'opacity-50' : '')
+        'relative inline-flex flex-col ' + (!account ? 'opacity-50' : '')
       }
     >
       <h3 className="text-4xl text-center mb-12">SEND</h3>
@@ -54,6 +68,7 @@ function TransactionBox() {
         //validate receiver address length (42char)
         disabled={!amount || receiver.length !== 42}
         className="mx-auto font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none disabled:opacity-25 w-48"
+        onClick={() => submitForm()}
       >
         Submit
       </button>
@@ -65,4 +80,4 @@ function TransactionBox() {
   );
 }
 
-export default TransactionBox;
+export default TransactionForm;

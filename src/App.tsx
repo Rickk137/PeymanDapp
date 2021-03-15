@@ -1,4 +1,4 @@
-import TransactionBox from './components/Common/TransactionBox';
+import TransactionBox from './components/Common/TransactionBox/TransactionBox';
 import Header from './components/Layout/Header';
 
 function App() {
