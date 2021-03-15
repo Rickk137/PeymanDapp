@@ -14,21 +14,24 @@ export async function unlockAccount() {
   const web3 = new Web3(ethereum);
   await ethereum.enable();
 
-  const network = await web3.eth.net.getNetworkType();
+  // const network = await web3.eth.net.getNetworkType();
   const accounts = await web3.eth.getAccounts();
+  const balance = await web3.eth.getBalance(accounts[0]);
 
-  return { web3, account: accounts[0] || '', network };
+  return { web3, account: accounts[0] || '', balance };
 }
 
 export function web3Checker(
   web3: Web3,
-  cb: (account: string, network: string, error: Error | null) => any
+  cb: (account: string, balance: string, error: Error | null) => any
 ) {
   const intervalId = setInterval(async () => {
     try {
-      const network = await web3.eth.net.getNetworkType();
+      // const network = await web3.eth.net.getNetworkType();
       const accounts = await web3.eth.getAccounts();
-      cb(accounts[0] || '', network || '', null);
+      const balance = await web3.eth.getBalance(accounts[0]);
+
+      cb(accounts[0] || '', balance, null);
     } catch (error) {
       cb('', '', error);
     }

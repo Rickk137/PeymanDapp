@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import RadioButtons from './RadioButtons';
 
 const assetList = [
@@ -14,9 +13,13 @@ const assetList = [
   },
 ];
 
-function Assets() {
-  const [activeAsset, setActiveAsset] = useState(assetList[0].id);
+interface AssetsProps {
+  activeAsset: string;
+  setActiveAsset: Function;
+  balance: number;
+}
 
+function Assets({ activeAsset, setActiveAsset, balance }: AssetsProps) {
   return (
     <div>
       <RadioButtons
@@ -24,7 +27,9 @@ function Assets() {
         value={activeAsset}
         onChange={setActiveAsset}
       />
-      <p className="mt-3 text-sm">Available Balance: 20,000.00 {activeAsset}</p>
+      <p className="mt-3 text-sm">
+        Available Balance: {balance} {activeAsset}
+      </p>
     </div>
   );
 }

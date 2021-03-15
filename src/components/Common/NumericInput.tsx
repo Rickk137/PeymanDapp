@@ -4,6 +4,7 @@ interface NumericInputProps {
   currency: string;
   placeholder?: string;
   multiselect?: boolean;
+  max: number;
 }
 const amountFractions = [1 / 10, 1 / 4, 1 / 2, 3 / 4, 1];
 
@@ -13,7 +14,13 @@ function NumericInput({
   currency,
   placeholder = '',
   multiselect,
+  max,
 }: NumericInputProps) {
+  const setValue = (val: string) => {
+    const value = parseFloat(val || '0');
+    if (value > max) return onChange(max);
+    onChange(value);
+  };
   return (
     <div className="inline-flex flex-col w-60 md:w-80">
       <div className="flex items-center relative text-black">
@@ -21,8 +28,11 @@ function NumericInput({
           className="focus:outline-none h-10 w-full px-12 rounded-lg text-center"
           placeholder={placeholder}
           type="number"
-          step="0.01"
+          step="0.0001"
           min="0"
+          max={max}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
         />
         <span className="absolute right-5">{currency}</span>
       </div>
@@ -37,6 +47,7 @@ function NumericInput({
                 }
                 key={item * 100}
                 style={{ width: `${amountFractions.length * 100}%` }}
+                onClick={() => setValue(`${max * item}`)}
               >
                 {item * 100}%
               </li>
