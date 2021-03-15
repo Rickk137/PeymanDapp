@@ -32,12 +32,12 @@ function TransactionForm({ submit }: TransactionFormProps) {
   return (
     <div
       className={
-        'relative inline-flex flex-col ' + (!account ? 'opacity-50' : '')
+        'relative block-flex w-full flex flex-col items-center ' + (!account ? 'opacity-50' : '')
       }
     >
       <h3 className="text-4xl text-center mb-12">SEND</h3>
 
-      <BlockWrapper className="mb-9" label="Assets:">
+      <BlockWrapper className="mb-9 w-full" label="Assets:">
         <Assets
           activeAsset={activeAsset}
           setActiveAsset={setActiveAsset}
@@ -45,7 +45,7 @@ function TransactionForm({ submit }: TransactionFormProps) {
         />
       </BlockWrapper>
 
-      <BlockWrapper className="mb-9" label="Amount:">
+      <BlockWrapper className="mb-9 w-full" label="Amount:">
         <NumericInput
           value={amount}
           onChange={setAmount}
@@ -55,7 +55,7 @@ function TransactionForm({ submit }: TransactionFormProps) {
         />
       </BlockWrapper>
 
-      <BlockWrapper className="mb-10" label="Send To:">
+      <BlockWrapper className="mb-10 w-full" label="Send To:">
         <input
           className="focus:outline-none text-black h-10 w-full px-4 rounded-lg text-center"
           placeholder="Type or Paste address"
@@ -63,11 +63,10 @@ function TransactionForm({ submit }: TransactionFormProps) {
           onChange={(e) => setReceiver(e.target.value)}
         />
       </BlockWrapper>
-
       <button
         //validate receiver address length (42char)
         disabled={!amount || receiver.length !== 42}
-        className="mx-auto font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none disabled:opacity-25 w-48"
+        className="font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none disabled:opacity-25 w-48"
         onClick={() => submitForm()}
       >
         Submit

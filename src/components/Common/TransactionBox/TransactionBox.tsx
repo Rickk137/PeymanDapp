@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useWeb3Context } from '../../../context/Web3';
 import { etherToWei } from '../../../lib/utils';
 import TransactionForm from './TransactionForm';
+import TransactionResult from './TransactionResult';
 import TransactionReview from './TransactionReview';
 
 export interface ITransactionForm {
@@ -50,10 +51,16 @@ function TransactionBox() {
   };
 
   return (
-    <div className="p-9 border border-gray-200 text-white bg-black bg-opacity-50 rounded-3xl">
+    <div
+      className="p-9 border border-gray-200 text-white bg-black bg-opacity-50 rounded-3xl"
+      style={{ minWidth: 400 }}
+    >
       {step === 1 && <TransactionForm submit={reviewForm} />}
       {step === 2 && (
         <TransactionReview submit={submitTransaction} form={form} />
+      )}
+      {step === 3 && (
+        <TransactionResult close={() => setStep(1)} hash={transactionHash} />
       )}
     </div>
   );

@@ -8,7 +8,7 @@ interface TransactionReviewProps {
 function TransactionReview({ form, submit }: TransactionReviewProps) {
   return (
     <div
-      className="relative inline-flex flex-col text-white"
+      className="relative inline-flex flex-col text-white w-full"
     >
       <h3 className="text-2xl text-center mb-12">Review Transaction</h3>
 
