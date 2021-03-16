@@ -7,9 +7,7 @@ interface TransactionReviewProps {
 
 function TransactionReview({ form, submit }: TransactionReviewProps) {
   return (
-    <div
-      className="relative inline-flex flex-col text-white w-full"
-    >
+    <div className="relative inline-flex flex-col text-white w-full">
       <h3 className="text-2xl text-center mb-12">Review Transaction</h3>
 
       <div className="flex text-lg flex-col items-center mb-10">
@@ -30,9 +28,11 @@ function TransactionReview({ form, submit }: TransactionReviewProps) {
 
       <p className="mb-10 truncate">To: {form.to}</p>
 
-      <p className="flex items-center justify-between mb-9 px-10">
-        TxFee: <span>{form.fee}</span>
-      </p>
+      {form.fee && (
+        <p className="flex items-center justify-between mb-9 px-10">
+          TxFee: <span>{form.fee} rEth</span>
+        </p>
+      )}
 
       <button
         className="mx-auto font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none w-48"

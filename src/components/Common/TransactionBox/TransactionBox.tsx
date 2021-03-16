@@ -19,7 +19,7 @@ export interface ITransactionForm {
 
 function TransactionBox() {
   const {
-    state: { web3, weenus, account },
+    state: { web3, weenus },
   } = useWeb3Context();
 
   const [transactionHash, setTransactionHash] = useState('');
@@ -33,13 +33,16 @@ function TransactionBox() {
   });
 
   const reviewForm = async (payload: ITransactionForm) => {
-    const fee = await web3?.eth.estimateGas({
-      from: payload.from,
-      to: payload.to,
-      value: `${etherToWei(payload.amount)}`,
-    });
-
-    payload.fee = fee;
+    if (payload.asset === 'rETH') {
+      const gasPrice = await web3?.eth.getGasPrice();
+      const gasLimit = await web3?.eth.estimateGas({
+        from: payload.from,
+        to: payload.to,
+        gasPrice,
+      });
+      if (gasPrice !== undefined && gasLimit !== undefined)
+        payload.fee = weiToEther(`${parseFloat(gasPrice) * gasLimit}`);
+    }
 
     setForm(payload);
     setStep(2);
@@ -80,12 +83,10 @@ function TransactionBox() {
         );
       } else if (asset === 'WEENUS') {
         try {
-          const success = await weenus.methods.transfer(to, 1000).call();
-          // .send({
-          //   from: account,
-          //   gas: 21000,
-          //   gasPrice: '100',
-          // });
+          const success = await weenus.methods
+            .transfer(to, web3.utils.toWei('100', 'ether'))
+            .call();
+
           if (success) {
             toast.success(`Transaction created!`);
           } else throw new Error('Error happened');
