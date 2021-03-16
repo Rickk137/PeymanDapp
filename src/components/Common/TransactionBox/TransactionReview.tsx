@@ -31,7 +31,7 @@ function TransactionReview({ form, submit }: TransactionReviewProps) {
       <p className="mb-10 truncate">To: {form.to}</p>
 
       <p className="flex items-center justify-between mb-9 px-10">
-        TxFee: <span>0.0006 rBTC</span>
+        TxFee: <span>{form.fee}</span>
       </p>
 
       <button

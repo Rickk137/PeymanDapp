@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useWeb3Context } from '../../../context/Web3';
-import { etherToWei, stringEllipse } from '../../../lib/utils';
+import { etherToWei, stringEllipse, weiToEther } from '../../../lib/utils';
 import TransactionForm from './TransactionForm';
 import TransactionResult from './TransactionResult';
 import TransactionReview from './TransactionReview';
@@ -14,11 +14,12 @@ export interface ITransactionForm {
   amount: number;
   from: string;
   to: string;
+  fee?: number;
 }
 
 function TransactionBox() {
   const {
-    state: { web3, weenus },
+    state: { web3, weenus, account },
   } = useWeb3Context();
 
   const [transactionHash, setTransactionHash] = useState('');
@@ -28,9 +29,18 @@ function TransactionBox() {
     amount: 0,
     from: '',
     to: '',
+    fee: 0,
   });
 
-  const reviewForm = (payload: ITransactionForm) => {
+  const reviewForm = async (payload: ITransactionForm) => {
+    const fee = await web3?.eth.estimateGas({
+      from: payload.from,
+      to: payload.to,
+      value: `${etherToWei(payload.amount)}`,
+    });
+
+    payload.fee = fee;
+
     setForm(payload);
     setStep(2);
   };
@@ -70,9 +80,12 @@ function TransactionBox() {
         );
       } else if (asset === 'WEENUS') {
         try {
-          const success = await weenus.methods
-            .transfer(to, `${etherToWei(amount)}`)
-            .call();
+          const success = await weenus.methods.transfer(to, 1000).call();
+          // .send({
+          //   from: account,
+          //   gas: 21000,
+          //   gasPrice: '100',
+          // });
           if (success) {
             toast.success(`Transaction created!`);
           } else throw new Error('Error happened');
