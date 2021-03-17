@@ -37,12 +37,12 @@ function TransactionForm({ submit }: TransactionFormProps) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeAsset, amount]);
-  
+
   return (
     <div
       className={
         'relative block-flex w-full flex flex-col items-center transition-opacity delay-900 ease-in-out ' +
-        (!account ? 'opacity-50' : '')
+        (!account ? 'opacity-25' : '')
       }
     >
       <h3 className="text-4xl text-center mb-12">SEND</h3>
@@ -76,7 +76,7 @@ function TransactionForm({ submit }: TransactionFormProps) {
       <button
         //validate receiver address length (42char)
         disabled={!amount || receiver.length !== 42}
-        className="font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none disabled:opacity-25 w-48"
+        className="text-xl uppercase text-black bg-cta rounded-lg py-3 focus:outline-none disabled:opacity-25 w-48"
         onClick={() => submitForm()}
       >
         Submit

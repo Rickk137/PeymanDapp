@@ -35,7 +35,7 @@ function TransactionReview({ form, submit }: TransactionReviewProps) {
       )}
 
       <button
-        className="mx-auto font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none w-48"
+        className="text-xl mx-auto uppercase text-black bg-cta rounded-lg py-3 focus:outline-none w-48"
         onClick={() => submit()}
       >
         Confirm

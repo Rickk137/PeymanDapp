@@ -27,8 +27,8 @@ function Assets({ activeAsset, setActiveAsset, balance }: AssetsProps) {
         value={activeAsset}
         onChange={setActiveAsset}
       />
-      <p className="mt-3 text-sm">
-        Available Balance: {`${balance}`.substr(0,15)} {activeAsset}
+      <p className="mt-3 text-xs">
+        Available Balance: {`${balance}`.substr(0, 15)} {activeAsset}
       </p>
     </div>
   );

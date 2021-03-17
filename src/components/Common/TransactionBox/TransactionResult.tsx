@@ -26,7 +26,7 @@ function TransactionResult({ hash, close }: TransactionResultProps) {
       )}
 
       <button
-        className="mt-9 mx-auto font-semibold uppercase text-black bg-cta rounded py-3 focus:outline-none w-48"
+        className="text-xl mt-9 mx-auto uppercase text-black bg-cta rounded-lg py-3 focus:outline-none w-48"
         onClick={() => close()}
       >
         CLOSE
