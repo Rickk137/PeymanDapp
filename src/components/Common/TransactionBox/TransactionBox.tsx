@@ -34,13 +34,23 @@ function TransactionBox() {
   });
 
   const reviewForm = async (payload: ITransactionForm) => {
-    if (payload.asset === 'rETH') {
-      const gasPrice = await web3?.eth.getGasPrice();
+    const { amount, asset, from, to } = payload;
+    const gasPrice = await web3?.eth.getGasPrice();
+    if (asset === 'rETH') {
       const gasLimit = await web3?.eth.estimateGas({
-        from: payload.from,
-        to: payload.to,
+        from,
+        to,
         gasPrice,
       });
+      if (gasPrice !== undefined && gasLimit !== undefined)
+        payload.fee = weiToEther(`${parseFloat(gasPrice) * gasLimit}`);
+    } else if (asset === 'WEENUS') {
+      const gasLimit = await weenus.methods
+        .transfer(to, web3?.utils.toWei(`${amount}`, 'ether'))
+        .estimateGas({
+          to,
+          gasPrice,
+        });
       if (gasPrice !== undefined && gasLimit !== undefined)
         payload.fee = weiToEther(`${parseFloat(gasPrice) * gasLimit}`);
     }
