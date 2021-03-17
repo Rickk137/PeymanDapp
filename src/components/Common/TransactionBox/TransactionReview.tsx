@@ -30,7 +30,7 @@ function TransactionReview({ form, submit }: TransactionReviewProps) {
 
       {form.fee && (
         <p className="flex items-center justify-between mb-9 px-10">
-          TxFee: <span>{form.fee} rEth</span>
+          TxFee: <span>{`${form.fee}`.substr(0, 10)} rEth</span>
         </p>
       )}
 
