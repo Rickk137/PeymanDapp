@@ -2,4 +2,4 @@
 
 Simple Ethereum Dapp using `typescript` and `react.js` which allows users to check their Weenus Token balance and send some of it to another wallet.
 
-[Check Here]((https://peyman-daap.netlify.app/)).
+[Check Here](https://peyman-daap.netlify.app/).
