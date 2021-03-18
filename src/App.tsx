@@ -5,7 +5,7 @@ function App() {
   return (
     <div>
       <Header />
-      <div className="flex justify-center pt-10">
+      <div className="flex justify-center py-10">
         <TransactionBox />
       </div>
     </div>
